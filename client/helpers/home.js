@@ -43,29 +43,6 @@ Template.Home.helpers({
 });
 
 
-Template.Home.created = function ()
-{
-    /*    Meteor.call('getLatestValueForIntegration', function (err, res) {
-     console.log(res);
-     Session.set('hm', res);
-     });*/
-
-
-/*    function getLatestValueForIntegration()
-    {
-        *//*
-         var last_value = IntegrationData.find({
-         integration: ID
-         date: today
-         })
-
-         return last_value.value;
-
-         *//*
-    }*/
-
-};
-
 Template.Home.events({
     'click #updateValue': function ()
     {

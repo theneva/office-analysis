@@ -172,7 +172,7 @@ ul.mainMenu li a:hover {
 
 li {list-style: none; }
 
-.intro {
+/*.intro {
     text-align: center;
     padding: 10% 0;
     background-repeat:repeat;
@@ -184,7 +184,7 @@ li {list-style: none; }
     background-image: radial-gradient(circle closest-corner at center top, rgba(236, 138, 12, 0.28) 0%, rgba(43, 0, 43, 0.15) 70%);
     overflow: hidden;
     min-height: 440px;
-}
+}*/
 .intro h1 {
     font-weight:600;
     color: #fff;
@@ -243,7 +243,9 @@ li {list-style: none; }
 }
 
 .hero {
+/*
     background-image:url(../cartographer.png);
+*/
 
     width: 100%;
     margin: 0 auto;
@@ -385,8 +387,8 @@ footer .social a:hover img {opacity: 1;}
 
     nav .container .logo {margin-bottom: 20px; text-align: center;}
 
-    .toptitle p {width: 400px;}
-    .rgb(255, 165, 0) p {width: 400px;}
+  /*  .toptitle p {width: 400px;}
+    .rgb(255, 165, 0) p {width: 400px;}*/
 
     form, label, input  {width: 400px;}
     input[type="submit"] {width: 402px;}
@@ -406,7 +408,9 @@ footer .social a:hover img {opacity: 1;}
 
     nav .container .logo {margin-bottom: 20px; text-align: center;}
 
-    .rgb(255, 165, 0) p {width: 200px;}
+    /*.rgb(255, 165, 0) p {width: 200px;*/
+
+
     .toptitle p {width: 300px;}
     .toptitle h2 {width: 100%; margin: 20px 0 50px; text-align: center; text-shadow: none; font-size: 2em;}
 

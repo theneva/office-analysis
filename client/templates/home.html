@@ -1,29 +1,24 @@
 <template name="Home">
 
-    <div class="bloc  l-bloc" id="bloc-2">
-        <div class="container bloc-lg">
-            <div class="row">
+    <!-- Hero Bloc -->
+    <div id="hero-bloc" class="bloc hero bg-citysky bgc-1 l-bloc" style="height: 100vh; width: 100vw;">
+        <div class="v-center text-center">
+            <div class="vc-content">
+                <h1 class="">
+                    Office Analysis as a Service
+                </h1>
 
-                <h1>Welcome</h1>
+                <h3 class="">
+                    Analyse your office or workplace with dashboards and reports!
+                </h3><br/><br/><br/>
+                {{#if currentUser}}
+                        <a href="/integrations" class="btn-wire btn btn-xl">Manage integrations</a>
+                    {{else}}
+                        <a href="/register" class="btn-wire btn btn-xl">Sign up</a>
+                {{/if}}
             </div>
         </div>
     </div>
-
-    <!--    <input type="text" id="value" name="value" placeholder="Value"/>
-        <button id="updateValue">Click Me</button>-->
-    <!--
-    {{getLatestValueForIntegration}}
--->
-    <!--    {{getUserId}}
-        {{getTeamObject}}
-
-    <button id="createDashboard">Create dashboard</button>
-
-    {{> CreateIntegration}}-->
-
-
-    <!--
-    {{> IntegrationList}}-->
-
+    <!-- Hero Bloc END -->
 
 </template>

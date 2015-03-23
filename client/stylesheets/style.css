@@ -166,7 +166,11 @@ h1, h2, h3, h4, h5, h6, p, label, .btn, a{
 /* Bloc image backgrounds */
 
 .bg-citysky{
-    background-image:url('img/citysky.jpg');
+    background:url('images/citysky.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 /* NavBar */

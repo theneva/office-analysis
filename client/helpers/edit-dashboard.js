@@ -1,43 +1,52 @@
 Template.EditDashboard.rendered = function ()
 {
 
-    var container = document.querySelector('#container');
-    var msnry = new Masonry(container, {
-        // options
-        columnWidth: 10,
-        itemSelector: '.item'
-    });
+    InitMasonry();
 
     $('#integration-chooser').hide();
     $('#predefinedIntegration').hide();
     $('#customIntegration').hide();
 
-    Tracker.autorun(function () {
+    Tracker.autorun(function ()
+    {
+
         var dashboard = Dashboards.findOne({owner_id: Meteor.userId()});
-        Session.set('dashboardId', dashboard._id);
-        console.log(dashboard);
-        for (var i = 0; i < dashboard.layout.length; i++)
+
+        if (typeof dashboard !== 'undefined')
         {
-            var layout = dashboard.layout[i];
 
-            if (layout.integration.integration_id !== "")
+            console.log(dashboard);
+
+            Session.set('dashboardId', dashboard._id);
+
+            for (var i = 0; i < dashboard.layout.length; i++)
             {
-                var integration = Integrations.findOne({
-                    _id: layout.integration.integration_id
-                });
+                var layout = dashboard.layout[i];
 
-                var integrationData = IntegrationData.findOne({
-                    integration_id: integration._id
-                });
+                if (layout.integration.integration_id !== "")
+                {
+                    var integration = Integrations.findOne({
+                        _id: layout.integration.integration_id
+                    });
 
-                if (typeof integrationData !== 'undefined') {
-                    Session.set(i + '-value', integrationData.last_value.value);
-                    Session.set(i + '-description', integration.description);
-                } else {
+                    var integrationData = IntegrationData.findOne({
+                        integration_id: integration._id
+                    });
+
+                    if (typeof integrationData !== 'undefined')
+                    {
+                        Session.set(i + '-value', integrationData.last_value.value);
+                        Session.set(i + '-description', integration.description);
+                    }
+                    else
+                    {
+                        Session.set(i + '-value', 'N/A');
+                    }
+                }
+                else
+                {
                     Session.set(i + '-value', 'N/A');
                 }
-            } else {
-                Session.set(i + '-value', 'N/A');
             }
         }
     })
@@ -45,12 +54,21 @@ Template.EditDashboard.rendered = function ()
 
 
 Template.EditDashboard.helpers({
-    dashboardId: function () {
+    doesDashboardExist: function ()
+    {
+        var dashboard = Dashboards.findOne({owner_id: Meteor.userId()});
+        console.log(dashboard);
+        //Session.set('lol', 'lol');
+
+        return typeof dashboard !== 'undefined';
+
+    },
+    dashboardId: function ()
+    {
         return Session.get('dashboardId');
     },
     layout: function ()
     {
-
         var layoutArray = [
             {
                 "container": 0,
@@ -146,10 +164,11 @@ Template.EditDashboard.helpers({
 
 
         //return Session.get('Testing');
-       //return dataArray.list();
+        //return dataArray.list();
 
     },
-    customIntegrations: function () {
+    customIntegrations: function ()
+    {
         console.log(Integrations.find().fetch());
         return Integrations.find().fetch();
     }
@@ -160,6 +179,15 @@ var selectedBox = 0;
 var previousBox = 0;
 
 Template.EditDashboard.events({
+    'click #createDashboard': function () {
+        Meteor.call('createDashboard', 'Somename', Meteor.userId(), function (err, res) {
+            if (!err) {
+
+                // Must reload because of Masonry...?
+                location.reload();
+            }
+        });
+    },
     'click .item': function (e)
     {
         $('#predefinedIntegration').prop('selectedIndex', 0);
@@ -215,8 +243,15 @@ Template.EditDashboard.events({
     },
     'change #customIntegration': function (e)
     {
-        //dashboardId
-        //$("div").find("[data-container='" + selectedBox + "']").text($(e.target).val());
         Meteor.call('setImplementationForLayoutBox', Session.get('dashboardId'), selectedBox, 'custom', $(e.target).val());
     }
 });
+
+function InitMasonry () {
+    var container = document.querySelector('#container');
+    var msnry = new Masonry(container, {
+        // options
+        columnWidth: 10,
+        itemSelector: '.item'
+    });
+}

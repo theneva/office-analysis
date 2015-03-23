@@ -1,12 +1,16 @@
-Meteor.publish('getValues', function ()
+Meteor.publish('getIntegrationData', function ()
 {
     return IntegrationData.find();
 });
 
-Meteor.publish('getTeam', function ()
+Meteor.publish('getDashboard', function ()
 {
-    //console.log(this.userId);
     return Dashboards.find({owner_id: this.userId});
+});
+
+Meteor.publish('getDashboardById', function (owner_id)
+{
+    return Dashboards.find({owner_id: owner_id});
 });
 
 Meteor.publish('getIntegrations', function ()
@@ -14,36 +18,57 @@ Meteor.publish('getIntegrations', function ()
     return Integrations.find({owner_id: this.userId});
 });
 
-Meteor.startup(function ()
+Meteor.publish('getIntegrationsById', function (ownerId)
 {
-    if (Dashboards.find().count() === 0 && IntegrationData.find().count() === 0)
-    {
-
-
-    }
+    return Integrations.find({owner_id: ownerId});
 });
+
 
 Meteor.methods({
     setValueAtMinute: function (integrationId, value)
     {
-        Meteor.call('getDateInfo', function (err, res)
-        {
-            var setModifier = {$set: {}};
-            setModifier.$set['data.' + res.hour + '.' + res.minute] = value;
-            setModifier.$set['last_value.time'] = res.hour + ':' + res.minute;
-            setModifier.$set['last_value.value'] = value;
 
-            console.log(setModifier);
+        var dt = new Date();
 
 
-            return IntegrationData.update(
-                {
-                    'date': res.date,
-                    'integration_id': integrationId
-                },
-                setModifier
-            );
-        })
+        var date = dt.getDate() + "/" + (dt.getMonth() + 1) + "/" + dt.getFullYear();
+        var hour = dt.getHours().toString();
+        var minute = (dt.getMinutes() < 10 ? '0' : '') + dt.getMinutes();
+
+        var setModifier = {$set: {}};
+        setModifier.$set['data.' + hour + '.' + minute] = value;
+        setModifier.$set['last_value.time'] = hour + ':' + minute;
+        setModifier.$set['last_value.value'] = value;
+
+        console.log(setModifier);
+
+
+        return IntegrationData.update(
+            {
+                'date': date,
+                'integration_id': integrationId
+            },
+            setModifier
+        );
+
+        /*        Meteor.call('getDateInfo', function (err, res)
+         {
+         var setModifier = {$set: {}};
+         setModifier.$set['data.' + res.hour + '.' + res.minute] = value;
+         setModifier.$set['last_value.time'] = res.hour + ':' + res.minute;
+         setModifier.$set['last_value.value'] = value;
+
+         console.log(setModifier);
+
+
+         return IntegrationData.update(
+         {
+         'date': res.date,
+         'integration_id': integrationId
+         },
+         setModifier
+         );
+         })*/
     },
     getDateInfo: function ()
     {
@@ -235,14 +260,15 @@ Meteor.methods({
 
         return integrationData;
     },
-    setImplementationForLayoutBox: function (dashboard_id, selectedBox, integration_type, integration_id) {
+    setImplementationForLayoutBox: function (dashboard_id, selectedBox, integration_type, integration_id)
+    {
 
         console.log(dashboard_id);
         console.log(selectedBox);
         console.log(integration_type);
         console.log(integration_id);
 
-        var setModifier = { $set: {} };
+        var setModifier = {$set: {}};
         setModifier.$set['layout.' + selectedBox + '.integration.type'] = integration_type;
         setModifier.$set['layout.' + selectedBox + '.integration.integration_id'] = integration_id;
 
@@ -259,66 +285,66 @@ Meteor.methods({
 
 
 /*
-Meteor.publishComposite('layoutWithData', function (userId)
-{
-    return {
-        find: function ()
-        {
-            return Dashboards.find({owner_id: userId})
-        },
-        children: [
-            {
-                find: function (dashboard)
-                {
+ Meteor.publishComposite('layoutWithData', function (userId)
+ {
+ return {
+ find: function ()
+ {
+ return Dashboards.find({owner_id: userId})
+ },
+ children: [
+ {
+ find: function (dashboard)
+ {
 
-                    // Find post author. Even though we only want to return
-                    // one record here, we use "find" instead of "findOne"
-                    // since this function should return a cursor.
-                    */
+ // Find post author. Even though we only want to return
+ // one record here, we use "find" instead of "findOne"
+ // since this function should return a cursor.
+ */
 /*return Meteor.users.find(
-                     {_id: post.authorId},
-                     {limit: 1, fields: {profile: 1}});*//*
+ {_id: post.authorId},
+ {limit: 1, fields: {profile: 1}});*//*
 
-                    //console.log();
+ //console.log();
 
 
-                    var s = [];
+ var s = [];
 
-                    for (var i = 0; i < dashboard.layout.length; i++)
-                    {
-                        var obj = dashboard.layout[i];
-                        console.log(obj);
+ for (var i = 0; i < dashboard.layout.length; i++)
+ {
+ var obj = dashboard.layout[i];
+ console.log(obj);
 
-                        s.push(obj);
-                        //Integrations
+ s.push(obj);
+ //Integrations
 
-                    }
+ }
 
-                    return s;
+ return s;
 
-                    //return dashboard.layout;
+ //return dashboard.layout;
 
-                }
-            }
-            */
+ }
+ }
+ */
 /*,
-             {
-             find: function (layouts)
-             {
+ {
+ find: function (layouts)
+ {
 
-             console.log(layouts);
+ console.log(layouts);
 
-             },
-             children: [
-             {
-             find: function ()
-             {
+ },
+ children: [
+ {
+ find: function ()
+ {
 
-             }
-             }
-             ]
-             }*//*
+ }
+ }
+ ]
+ }*//*
 
-        ]
-    }
-});*/
+ ]
+ }
+ });*/
