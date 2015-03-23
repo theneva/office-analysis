@@ -1,5 +1,6 @@
 # Office Analysis
 > By Martin Lehmann & Andreas Biørn-Hansen for MA220 Architecting the Internet of Things
+
 #### #1. Install Meteor
 Download and install Meteor (requires OS X):
 ````
