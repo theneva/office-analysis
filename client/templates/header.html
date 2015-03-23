@@ -1,0 +1,43 @@
+<template name="Header">
+    <!-- Navigation Bloc -->
+    <div id="b-nav" class="bloc-container">
+        <div id="bloc-nav" class="d-mode d-mode-active">
+            <div class="bloc bgc-3 d-bloc" id="nav-bloc">
+                <div class="container bloc-sm">
+                    <nav class="navbar row">
+                        <div class="navbar-header">
+                            <a class="navbar-brand" href="/">OaaaS</a>
+                            <button id="nav-toggle" type="button" class="ui-navbar-toggle navbar-toggle"
+                                    data-toggle="collapse" data-target=".navbar-1">
+                                <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span
+                                    class="icon-bar"></span><span class="icon-bar"></span>
+                            </button>
+                        </div>
+                        <div class="collapse navbar-collapse navbar-1">
+                            <ul class="site-navigation nav">
+                                <li>
+                                    <a href="/">Home</a>
+                                </li>
+                                {{#if currentUser}}
+                                    <li>
+                                        <a href="/integrations">Integrations</a>
+                                    </li>
+                                    <li>
+                                        <a href="/edit-dashboard">Edit Dashboard</a>
+                                    </li>
+                                    <li>
+                                        <a href="/profile">{{currentUser.emails.[0].address}}</a>
+                                    </li>
+                                {{else}}
+                                    <li>
+                                        <a href="/login">Login</a>
+                                    </li>
+                                {{/if}}
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

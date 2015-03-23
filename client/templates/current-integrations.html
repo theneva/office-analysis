@@ -1,0 +1,30 @@
+<template name="CurrentIntegrations">
+    <div class="bloc  l-bloc" id="bloc-2">
+        <div class="container bloc-lg">
+            <div class="row">
+                <h2>Current integrations:</h2>
+
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Integration name</th>
+                        <th>Description</th>
+                        <th>REST endpoint</th>
+                        <th>Generate report</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{#each integrations}}
+                        <tr>
+                            <td>{{name}}</td>
+                            <td>{{description}}</td>
+                            <td>http://localhost:3000/api/sensordata/{{_id}}</td>
+                            <td><button class="btn btn-primary btn-sm">Generate report for integration</button></td>
+                        </tr>
+                    {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</template>

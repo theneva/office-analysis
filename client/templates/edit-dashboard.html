@@ -1,0 +1,62 @@
+<template name="EditDashboard">
+
+    <div style="width: 100%; height: 10vh; background-color: #2fb151;">
+
+        <div style="margin: 0 auto; width: 20%; padding-top: 1vh;">
+            <b style="color: white;">Tip: Click a box below, and choose an integration!</b>
+            <div id="integration-chooser" class="btn-group" role="group" aria-label="...">
+                <button type="button" class="btn btn-default integration"
+                        data-integrationType="customIntegration">
+                    Custom integration
+                </button>
+                <button type="button" class="btn btn-default integration"
+                        data-integrationType="predefinedIntegration">Predefined integration
+                </button>
+            </div>
+
+            <select name="predefinedIntegration" id="predefinedIntegration">
+                <option value="default" selected>Select one below</option>
+                <option value="Weather - Temperature">Weather.com - Temperature</option>
+                <option value="Weather - Humidity">Weather.com - Humidity</option>
+            </select>
+
+            <select name="customIntegration" id="customIntegration">
+                <option value="default" selected>Select one below</option>
+                {{#each customIntegrations}}
+                    <option value="{{_id}}">{{name}}</option>
+                {{/each}}
+
+            </select>
+        </div>
+
+    </div>
+
+    <div id="container">
+        {{#each layout}}
+            <div class="item half temp flexbox-container" data-container="{{container}}">
+                <ul>
+                    <li class="icon"
+                        style="font-weight: 200; font-size: 5em; color: rgb(255, 165, 0);">{{integration.integrationData}}</li>
+                    <li style="font-size: 1.7em; color: rgb(255, 165, 0); font-weight: bold;">{{integration.integrationDescription}}</li>
+                </ul>
+            </div>
+        {{/each}}
+
+
+    </div>
+</template>
+
+<!--
+<template name="Dashboard">
+    <h1>Dashboard</h1>
+
+    {{#each layout}}
+    {{integration.integrationName}}
+    {{integration.integrationData}}
+{{/each}}
+
+    &lt;!&ndash;{{#each layout}}
+    {{integration.integrationName}}
+    {{integration.integrationData}}
+{{/each}}&ndash;&gt;
+</template>-->
