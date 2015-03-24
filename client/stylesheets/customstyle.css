@@ -24,10 +24,10 @@
 
 
 body {
-    background-color: #F5F5F5;
+    background-color: #fff !important;
     color: #000;
     font-family: 'Lato', sans-serif;
-    font-weight: lighter;
+    /*font-weight: lighter;*/
 }
 
 .selected-item {
