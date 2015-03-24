@@ -1,29 +1,3 @@
-Template.Home.rendered = function ()
-{
-
-    /*    Meteor.call('getDateInfo', function (err, res) {
-     console.log(res);
-     var data = IntegrationData.findOne({
-     date: res.date
-     });
-     console.log(data.data[res.hour][res.minute]);
-     });*/
-
-    /*    Meteor.call('getValueForMinute', function (err, res) {
-     console.log(err);
-     console.log(res);
-     });
-
-     Meteor.call('getDateInfo', function (err, res) {
-
-     */
-    /*        var value = IntegrationData.find().fetch();
-
-     console.log(value);
-     console.log(value[0].data['10'][21]);*/
-    /*
-     });*/
-};
 
 Template.Home.helpers({
     getUserId: function ()

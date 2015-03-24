@@ -11,10 +11,12 @@ Template.Dashboard.rendered = function () {
 
     Tracker.autorun(function () {
         var ownerId = Session.get('ownerId');
-        console.log(ownerId);
-        var dashboard = Dashboards.findOne();
 
-        console.log(Integrations.findOne());
+        console.log(ownerId);
+
+        var dashboard = Dashboards.findOne({owner_id: ownerId});
+
+        //console.log(Integrations.findOne());
 
 
         //Session.set('dashboardId', dashboard._id);
@@ -26,8 +28,6 @@ Template.Dashboard.rendered = function () {
 
             if (layout.integration.integration_id !== "")
             {
-
-
                 var integration = Integrations.findOne({
                     _id: layout.integration.integration_id
                 });
