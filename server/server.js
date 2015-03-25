@@ -42,8 +42,12 @@ Meteor.methods({
     {
         var dt = new Date();
         var date = dt.getDate() + "/" + (dt.getMonth() + 1) + "/" + dt.getFullYear();
-        var hour = dt.getHours().toString();
+        var hour = (dt.getHours().toString() < 10 ? '0' : '') + dt.getHours().toString();
+        //var hour = dt.getHours().toString();
         var minute = (dt.getMinutes() < 10 ? '0' : '') + dt.getMinutes();
+
+        console.log("hour: " + hour);
+        console.log("minute: " + minute);
 
         var setModifier = {$set: {}};
         setModifier.$set['data.' + hour + '.' + minute] = value;
