@@ -1,4 +1,5 @@
-Template.Dashboard.rendered = function () {
+Template.Dashboard.rendered = function ()
+{
 
     $('#b-nav').hide();
 
@@ -9,19 +10,11 @@ Template.Dashboard.rendered = function () {
         itemSelector: '.item'
     });
 
-    Tracker.autorun(function () {
+    Tracker.autorun(function ()
+    {
         var ownerId = Session.get('ownerId');
-
-        console.log(ownerId);
-
         var dashboard = Dashboards.findOne({owner_id: ownerId});
 
-        //console.log(Integrations.findOne());
-
-
-        //Session.set('dashboardId', dashboard._id);
-
-        console.log(dashboard);
         for (var i = 0; i < dashboard.layout.length; i++)
         {
             var layout = dashboard.layout[i];
@@ -32,19 +25,22 @@ Template.Dashboard.rendered = function () {
                     _id: layout.integration.integration_id
                 });
 
-                console.log(integration);
-
                 var integrationData = IntegrationData.findOne({
                     integration_id: integration._id
                 });
 
-                if (typeof integrationData !== 'undefined') {
+                if (typeof integrationData !== 'undefined')
+                {
                     Session.set(i + '-value', integrationData.last_value.value);
                     Session.set(i + '-description', integration.description);
-                } else {
+                }
+                else
+                {
                     Session.set(i + '-value', 'N/A');
                 }
-            } else {
+            }
+            else
+            {
                 Session.set(i + '-value', 'N/A');
             }
         }

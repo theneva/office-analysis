@@ -58,8 +58,6 @@ Template.EditDashboard.helpers({
     {
         var dashboard = Dashboards.findOne({owner_id: Meteor.userId()});
         console.log(dashboard);
-        //Session.set('lol', 'lol');
-
         return typeof dashboard !== 'undefined';
 
     },
@@ -159,13 +157,6 @@ Template.EditDashboard.helpers({
         ];
 
         return layoutArray;
-
-        //var integration = Session.get('Testing');
-
-
-        //return Session.get('Testing');
-        //return dataArray.list();
-
     },
     customIntegrations: function ()
     {
@@ -179,9 +170,12 @@ var selectedBox = 0;
 var previousBox = 0;
 
 Template.EditDashboard.events({
-    'click #createDashboard': function () {
-        Meteor.call('createDashboard', 'Somename', Meteor.userId(), function (err, res) {
-            if (!err) {
+    'click #createDashboard': function ()
+    {
+        Meteor.call('createDashboard', 'Somename', Meteor.userId(), function (err, res)
+        {
+            if (!err)
+            {
 
                 // Must reload because of Masonry...?
                 location.reload();
@@ -247,7 +241,8 @@ Template.EditDashboard.events({
     }
 });
 
-function InitMasonry () {
+function InitMasonry()
+{
     var container = document.querySelector('#container');
     var msnry = new Masonry(container, {
         // options

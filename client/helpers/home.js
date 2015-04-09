@@ -1,3 +1,6 @@
+/*
+ * Could possibly remove this whole file.
+ */
 
 Template.Home.helpers({
     getUserId: function ()
@@ -12,7 +15,6 @@ Template.Home.helpers({
     getTeamObject: function ()
     {
         var team = Dashboards.findOne();
-        //console.log(team);
     }
 });
 
@@ -24,15 +26,20 @@ Template.Home.events({
     },
     'click #createDashboard': function ()
     {
-        Meteor.call('checkIfDashboardForUserExist', Meteor.userId(), function (err, res) {
+        Meteor.call('checkIfDashboardForUserExist', Meteor.userId(), function (err, res)
+        {
 
             // If 0, dashboard for user does not exist, let's make one!
-            if (res.length === 0) {
-                Meteor.call('createDashboard', 'RandomName', Meteor.userId(), function (err, res) {
+            if (res.length === 0)
+            {
+                Meteor.call('createDashboard', 'RandomName', Meteor.userId(), function (err, res)
+                {
                     console.log(err);
                     console.log(res);
                 })
-            } else {
+            }
+            else
+            {
                 // Otherwise, the user has a dashboard, let's tell them so!
                 alert('User already has a dashboard, called: ' + res[0].name)
             }

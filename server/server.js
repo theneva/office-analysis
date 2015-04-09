@@ -43,19 +43,12 @@ Meteor.methods({
         var dt = new Date();
         var date = dt.getDate() + "/" + (dt.getMonth() + 1) + "/" + dt.getFullYear();
         var hour = (dt.getHours().toString() < 10 ? '0' : '') + dt.getHours().toString();
-        //var hour = dt.getHours().toString();
         var minute = (dt.getMinutes() < 10 ? '0' : '') + dt.getMinutes();
-
-        console.log("hour: " + hour);
-        console.log("minute: " + minute);
 
         var setModifier = {$set: {}};
         setModifier.$set['data.' + hour + '.' + minute] = value;
         setModifier.$set['last_value.time'] = hour + ':' + minute;
         setModifier.$set['last_value.value'] = value;
-
-        console.log(setModifier);
-
 
         return IntegrationData.update(
             {
@@ -68,17 +61,13 @@ Meteor.methods({
     getLatestValueForIntegration: function ()
     {
         var dt = new Date();
-
         var date = dt.getDate() + "/" + (dt.getMonth() + 1) + "/" + dt.getFullYear();
 
         var value = IntegrationData.findOne({
             date: date
         });
 
-        console.log(value);
-
         return value.last_value.value;
-
     },
     checkIfDashboardForUserExist: function (owner_id)
     {
@@ -192,7 +181,7 @@ Meteor.methods({
 
         var integration = IntegrationData.find({
             "integration_id": integration_id,
-            "date": date // <-- Datoen det gjelder for
+            "date": date // <-- The current date
         }).fetch();
 
         return {
